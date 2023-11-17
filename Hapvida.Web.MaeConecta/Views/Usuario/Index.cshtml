@@ -5,7 +5,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Usuarios - Maes</h1>
+<h1>Usuarios - Mães</h1>
 
 @if (TempData["msg"] != null)
 {
@@ -52,7 +52,7 @@
                 </button>
                 
              <a asp-action="ocorrencias" asp-route-id="@key.UsuarioId" class="btn btn-sm btn-outline-primary">Ocorrencias</a>
-             <a asp-action="Contatos" asp-route-id="@key.UsuarioId" class="btn btn-sm btn-outline-primary">Contatos</a>
+             <a asp-action="procedimentos" asp-route-id="@key.UsuarioId" class="btn btn-sm btn-outline-primary">Procedimentos</a>
 
 
          </td>
