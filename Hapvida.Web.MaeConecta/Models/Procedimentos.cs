@@ -20,7 +20,12 @@ namespace Hapvida.Web.MaeConecta.Models
         [Column("Dt_procedimento"), Display(Name = "Data do Procedimento"), DataType(DataType.DateTime)]
         public DateTime Data { get; set; }
 
-       
+
+        // N:1
+        public Usuario Usuario { get; set; }
+        public int UsuarioId { get; set; }
+
+
 
 
     }

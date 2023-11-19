@@ -15,14 +15,18 @@
     </div>    
 }
 
-<form class="roe" asp-action="index" method="get">
-    <div>
-        <input name="filtro" class="form-control" type="text" placeholder="Digite o nome para Pesquisar o Usuario" />
+<form class="row" asp-action="index" method="get">
+    <div class="col-md-8 mb-2">
+        <input name="filtro" class="form-control" type="text" placeholder="Digite o nome para Pesquisar o Usuário" />
     </div>
-    <button class="col-2 btn btn-success">Pesquisar</button>
+    <div class="col-md-4 d-flex align-items-center">
+        <button class="btn btn-success">
+            <i class="fas fa-search"></i> <!-- Ícone de pesquisa -->
+        </button>
+    </div>
 </form>
 
-<a asp-action="cadastrar">Cadastrar</a>
+
 
 <table class="table table-striped">
     <tr>
@@ -32,6 +36,7 @@
         <th>Sangue</th>
         <th>Email</th>
         <th>Logradouro</th>
+        <th></th>
 
     </tr>
     @foreach(var key in Model)
@@ -43,22 +48,28 @@
          <td>@key.TipoSanguineo</td>
          <td>@key.Email</td>
          <td>@key.Endereco.Logradouro</td>
-         <td>
+            <td>
+                <a asp-action="editar" asp-route-id="@key.UsuarioId" class="btn btn-sm btn-outline-info">
+                    <i class="fas fa-pencil-alt"></i> <!-- Ícone de lápis para editar -->
+                </a>
 
-             <a asp-action="editar" asp-route-id="@key.UsuarioId" class="btn btn-sm btn-outline-info" >Editar</a>
-
-                <button onclick="key.value = @key.UsuarioId" type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Excluir
+                <button onclick="key.value= @key.UsuarioId" type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <i class="fas fa-trash-alt"></i> <!-- Ícone de lixeira para excluir -->
                 </button>
-                
-             <a asp-action="ocorrencias" asp-route-id="@key.UsuarioId" class="btn btn-sm btn-outline-primary">Ocorrencias</a>
-             <a asp-action="procedimentos" asp-route-id="@key.UsuarioId" class="btn btn-sm btn-outline-primary">Procedimentos</a>
 
-
-         </td>
+                <a asp-action="procedimentos" asp-route-id="@key.UsuarioId" class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-list"> procedimentos</i> <!-- Ícone de lista (pode ser ajustado conforme necessário) -->
+                </a>
+            </td>
      </tr>   
     }
 </table>
+
+<div class="text-end mt-3">
+    <a asp-controller="Usuario" asp-action="cadastrar" class="btn btn-primary btn-lg rounded-circle" title="Adicionar Usuário">
+        <i class="fas fa-plus"></i>
+    </a>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -1,0 +1,33 @@
+﻿@model Procedimentos
+@{
+    ViewData["Title"] = "Atualizar";
+}
+
+<h1>Atualizar Procedimento</h1>
+
+<form asp-action="alterar">
+
+    <input type="hidden" asp-for="UsuarioId" value="@ViewBag.Usuario.UsuarioId" />
+   
+    <div class="mb-3">
+        <label asp-for="Tipo"></label>
+        <select asp-for="Tipo" class="form-select"
+                asp-items="@Html.GetEnumSelectList<Tipo>()">
+            <option>Selecione</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Especialidade"></label>
+        <select asp-for="Especialidade" class="form-select"
+                asp-items="@Html.GetEnumSelectList<Especialidade>()">
+            <option>Selecione</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Data"></label>
+        <input asp-for="Data" class="form-control" />
+    </div>
+
+    <input asp-for="ProcedimentosId" />
+    <button class="btn btn-primary">Editar</button>
+</form>

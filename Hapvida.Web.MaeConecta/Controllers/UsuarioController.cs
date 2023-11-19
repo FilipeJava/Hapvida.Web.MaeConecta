@@ -76,6 +76,68 @@ namespace Hapvida.Web.MaeConecta.Controllers
             return RedirectToAction("Index");
         }
 
+        // Incluir  Procedimentos
+        [HttpPost]
+        public IActionResult Incluir(Procedimentos procedimentos) 
+
+        {
+            _context.Procedimentos.Add(procedimentos);
+            _context.SaveChanges();
+            TempData["msg"] = "Procedimento Cadastrado";
+            return RedirectToAction("Procedimentos", new { id = procedimentos.UsuarioId });
+        }
+
+        [HttpGet]
+        public IActionResult Procedimentos(int id)
+        {
+            ViewBag.procedimentos = _context.Procedimentos
+                .Where(p => p.UsuarioId==id).ToList();
+
+            ViewBag.usuario = _context.Usuarios.Find(id);
+
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            var procedimento = _context.Procedimentos.Find(id);
+            _context.Procedimentos.Remove(procedimento);
+            _context.SaveChanges();
+           return RedirectToAction("Index");
+        }
+
+
+
+        [HttpPost]
+        public IActionResult Alterar(Procedimentos procedimentos)
+        {
+            _context.Procedimentos.Update(procedimentos);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Alterar(int id)
+        {
+            // Lógica para obter o procedimento e o usuário associado
+            var procedimento = _context.Procedimentos
+                .Include(p => p.Usuario)
+                .FirstOrDefault(p => p.ProcedimentosId == id);
+
+            // Verifica se o procedimento foi encontrado
+            if (procedimento == null)
+            {
+                return NotFound();
+            }
+
+            // Define o usuário na ViewBag
+            ViewBag.Usuario = procedimento.Usuario;
+
+            return View(procedimento);
+        }
+
 
     }
 }

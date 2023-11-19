@@ -1,0 +1,115 @@
+﻿@model Procedimentos
+
+@{
+    ViewData["Title"] = "Procedimentos";
+}
+
+<h1>Procedimentos</h1>
+
+<h2>Mãe: @ViewBag.Usuario.Nome</h2>
+<hr />
+
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["msg"]
+    </div>
+}
+
+<div class="row">
+    <div class="col-6">
+        <h3>Agendar</h3>
+        <form asp-action="incluir" class="needs-validation" novalidate>
+            <input type="hidden" asp-for="UsuarioId" value="@ViewBag.Usuario.UsuarioId" />
+
+            <div class="mb-3">
+                <label asp-for="Tipo">Tipo</label>
+                <select asp-for="Tipo" class="form-select" asp-items="@Html.GetEnumSelectList<Tipo>()" required>
+                    <option value="">Selecione</option>
+                </select>
+                <div class="invalid-feedback">Por favor, selecione um tipo.</div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Especialidade">Especialidade</label>
+                <select asp-for="Especialidade" class="form-select" asp-items="@Html.GetEnumSelectList<Especialidade>()" required>
+                    <option value="">Selecione</option>
+                </select>
+                <div class="invalid-feedback">Por favor, selecione uma especialidade.</div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Data">Data</label>
+                <input asp-for="Data" class="form-control" type="date" required />
+                <div class="invalid-feedback">Por favor, selecione uma data válida.</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Incluir
+            </button>
+        </form>
+    </div>
+
+    <div class="col-6">
+        <h3>Exames</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Especialidade</th>
+                    <th>Data</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.procedimentos)
+                {
+                    <tr>
+                        <td>@item.Tipo</td>
+                        <td>@item.Especialidade</td>
+                        <td>@item.Data</td>
+                        <td>
+                            <a asp-action="alterar" asp-route-id="@item.ProcedimentosId" class="btn btn-sm btn-outline-info">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
+
+                            <button onclick="setKey(@item.ProcedimentosId)" type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmação</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Deseja realmente apagar o Procedimento?
+            </div>
+            <div class="modal-footer">
+                <form asp-action="delete">
+                    <input type="hidden" name="id" id="key" />
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                    <button type="submit" class="btn btn-danger">Sim</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        function setKey(id) {
+            document.getElementById('key').value = id;
+        }
+    </script>
+}
