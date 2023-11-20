@@ -139,5 +139,17 @@ namespace Hapvida.Web.MaeConecta.Controllers
         }
 
 
+        //dash
+
+        [HttpGet]
+        public IActionResult Dash(int id) 
+        {
+            ViewBag.quantidade = _context.Procedimentos
+               .Where(p => p.UsuarioId == id).ToList().Count();
+
+            return View(); 
+        }
+
+
     }
 }

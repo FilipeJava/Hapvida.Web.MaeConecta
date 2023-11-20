@@ -50,15 +50,19 @@
          <td>@key.Endereco.Logradouro</td>
             <td>
                 <a asp-action="editar" asp-route-id="@key.UsuarioId" class="btn btn-sm btn-outline-info">
-                    <i class="fas fa-pencil-alt"></i> <!-- Ícone de lápis para editar -->
+                    <i class="fas fa-pencil-alt"></i> 
                 </a>
 
                 <button onclick="key.value= @key.UsuarioId" type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <i class="fas fa-trash-alt"></i> <!-- Ícone de lixeira para excluir -->
+                    <i class="fas fa-trash-alt"></i> 
                 </button>
 
-                <a asp-action="procedimentos" asp-route-id="@key.UsuarioId" class="btn btn-sm btn-outline-primary">
-                    <i class="fas fa-list"> procedimentos</i> <!-- Ícone de lista (pode ser ajustado conforme necessário) -->
+                <a asp-action="procedimentos" asp-route-id="@key.UsuarioId" class="btn btn-sm btn-primary">
+                    <i class="fas fa-list"> procedimentos</i> 
+                </a>
+
+                <a asp-action="dash" asp-route-id="@key.UsuarioId" class="btn btn-sm btn-primary">
+                    <i class="fas fa-tv"> Dashboard</i>
                 </a>
             </td>
      </tr>   
